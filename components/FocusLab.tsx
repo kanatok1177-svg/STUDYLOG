@@ -128,7 +128,11 @@ export function FocusLab({
         wasHiddenRef.current = true;
       } else if (wasHiddenRef.current) {
         wasHiddenRef.current = false;
-        setAwayCount((c) => c + 1);
+        setAwayCount((c) => {
+          const next = c + 1;
+          notify("おかえりなさい", `離席を検知しました(今回で${next}回目)。集中に戻りましょう`);
+          return next;
+        });
       }
     }
     document.addEventListener("visibilitychange", handleVisibility);

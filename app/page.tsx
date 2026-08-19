@@ -9,10 +9,13 @@ import { BankVault } from "@/components/BankVault";
 import { ExamStudy } from "@/components/ExamStudy";
 import { BankLogo } from "@/components/BankLogo";
 import { OnboardingModal } from "@/components/OnboardingModal";
+import { useDailyNotifications } from "@/lib/useDailyNotifications";
 
 export default function Home() {
   const { state, update, hydrated } = useAppState();
   const [tab, setTab] = useState<TabKey>("dashboard");
+
+  useDailyNotifications(state, update, hydrated && state.onboarded);
 
   return (
     <main className="min-h-screen">

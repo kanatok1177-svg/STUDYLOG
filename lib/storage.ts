@@ -19,6 +19,7 @@ function loadState(): AppState {
       ...DEFAULT_STATE,
       ...parsed,
       streak: { ...DEFAULT_STATE.streak, ...(parsed.streak ?? {}) },
+      notifications: { ...DEFAULT_STATE.notifications, ...(parsed.notifications ?? {}) },
       bank: {
         ...DEFAULT_STATE.bank,
         ...(parsed.bank ?? {}),
