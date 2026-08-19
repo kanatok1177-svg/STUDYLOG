@@ -111,17 +111,11 @@ export interface StreakState {
   lastDate: string | null; // YYYY-MM-DD
 }
 
-export interface NotificationState {
-  lastMorningNotifDate: string | null; // 朝の定期通知を最後に送った日(YYYY-MM-DD)
-  lastInactivityNotifiedFor: string | null; // 未記録通知の対象とした「最終学習日」(重複送信防止)
-}
-
 export interface AppState {
   onboarded: boolean; // 初回の目標時間設定(オンボーディング)が完了したか
   focusSessions: FocusSession[];
   streak: StreakState;
   bank: BankState;
-  notifications: NotificationState;
   exam: {
     mockResults: MockExamResult[];
     subjectLogs: SubjectLog[];
@@ -133,7 +127,6 @@ export const DEFAULT_STATE: AppState = {
   onboarded: false,
   focusSessions: [],
   streak: { current: 0, best: 0, lastDate: null },
-  notifications: { lastMorningNotifDate: null, lastInactivityNotifiedFor: null },
   bank: {
     dailyGoalMinutes: 60,
     lastSettledDate: null,
