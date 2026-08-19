@@ -170,6 +170,19 @@ export function repayDebt(state: AppState, minutes: number): AppState {
   };
 }
 
+/** 初回オンボーディングでの目標時間確定(通常の変更制限とは別枠) */
+export function completeOnboarding(state: AppState, goalMinutes: number): AppState {
+  if (goalMinutes <= 0) return state;
+  return {
+    ...state,
+    onboarded: true,
+    bank: {
+      ...state.bank,
+      dailyGoalMinutes: goalMinutes,
+    },
+  };
+}
+
 export function updateDailyGoal(state: AppState, newGoal: number): AppState {
   if (!state.bank.flags.goalChangeUnlocked) return state;
   if (newGoal <= 0) return state;

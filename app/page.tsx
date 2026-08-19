@@ -8,6 +8,7 @@ import { FocusLab } from "@/components/FocusLab";
 import { BankVault } from "@/components/BankVault";
 import { ExamStudy } from "@/components/ExamStudy";
 import { BankLogo } from "@/components/BankLogo";
+import { OnboardingModal } from "@/components/OnboardingModal";
 
 export default function Home() {
   const { state, update, hydrated } = useAppState();
@@ -15,6 +16,8 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
+      {hydrated && !state.onboarded && <OnboardingModal update={update} />}
+
       <header className="px-5 pt-8 pb-2 max-w-lg mx-auto">
         <div className="flex items-center gap-3">
           <BankLogo size={34} />

@@ -4,6 +4,12 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { AppState, FocusSession, TimerMode } from "@/lib/types";
 import { uid } from "@/lib/storage";
 import { bumpStreak, getLevelInfo, getTotalXPMinutes } from "@/lib/xp";
+import {
+  NotifyPermission,
+  getNotificationPermission,
+  requestNotificationPermission,
+  sendNotification,
+} from "@/lib/notify";
 import { HankoStamp } from "./HankoStamp";
 
 type Phase = { type: "work" | "break"; seconds: number };
@@ -59,9 +65,7 @@ export function FocusLab({
   const [secondsLeft, setSecondsLeft] = useState(work * 60);
   const [awayCount, setAwayCount] = useState(0);
   const [justCompleted, setJustCompleted] = useState(false);
-  const [notifPermission, setNotifPermission] = useState<NotificationPermission | "unsupported">(
-    "default"
-  );
+  const [notifPermission, setNotifPermission] = useState<NotifyPermission>("default");
 
   const workedSecondsRef = useRef(0);
   const wasHiddenRef = useRef(false);
@@ -81,11 +85,7 @@ export function FocusLab({
   }, [mode, work, rest, cycles]);
 
   useEffect(() => {
-    if (typeof window === "undefined" || !("Notification" in window)) {
-      setNotifPermission("unsupported");
-      return;
-    }
-    setNotifPermission(Notification.permission);
+    setNotifPermission(getNotificationPermission());
   }, []);
 
   useEffect(() => {
@@ -136,15 +136,12 @@ export function FocusLab({
   }, [running]);
 
   function notify(title: string, body: string) {
-    if (typeof window === "undefined" || !("Notification" in window)) return;
-    if (Notification.permission === "granted") {
-      new Notification(title, { body, tag: "nextk-study-hub" });
-    }
+    // 送信前に必ず許可状況を確認してから送る
+    sendNotification(title, body);
   }
 
   function requestNotifPermission() {
-    if (typeof window === "undefined" || !("Notification" in window)) return;
-    Notification.requestPermission().then(setNotifPermission);
+    requestNotificationPermission().then(setNotifPermission);
   }
 
   function completeSession() {

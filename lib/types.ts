@@ -112,6 +112,7 @@ export interface StreakState {
 }
 
 export interface AppState {
+  onboarded: boolean; // 初回の目標時間設定(オンボーディング)が完了したか
   focusSessions: FocusSession[];
   streak: StreakState;
   bank: BankState;
@@ -123,6 +124,7 @@ export interface AppState {
 }
 
 export const DEFAULT_STATE: AppState = {
+  onboarded: false,
   focusSessions: [],
   streak: { current: 0, best: 0, lastDate: null },
   bank: {
