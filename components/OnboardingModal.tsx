@@ -8,6 +8,7 @@ import {
   getNotificationPermission,
   requestNotificationPermission,
 } from "@/lib/notify";
+import { NumberInput } from "./NumberInput";
 
 type Step = "notify" | "goal" | "confirm";
 
@@ -104,11 +105,10 @@ export function OnboardingModal({
             </div>
             <label className="block mb-5">
               <span className="block text-[11px] text-inkSoft mb-1">目標時間(分)</span>
-              <input
-                type="number"
+              <NumberInput
                 min={1}
                 value={goal}
-                onChange={(e) => setGoal(Math.max(0, Number(e.target.value) || 0))}
+                onChange={setGoal}
                 className="w-full rounded-lg border border-line bg-white/60 px-3 py-2 font-mono text-lg"
               />
             </label>

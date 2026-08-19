@@ -11,6 +11,7 @@ import {
   sendNotification,
 } from "@/lib/notify";
 import { HankoStamp } from "./HankoStamp";
+import { NumberInput } from "./NumberInput";
 
 type Phase = { type: "work" | "break"; seconds: number };
 
@@ -401,16 +402,12 @@ function NumberField({
   return (
     <label className="block">
       <span className="block text-[11px] text-inkSoft mb-1">{label}</span>
-      <input
-        type="number"
+      <NumberInput
         value={value}
         min={min}
         max={max}
         disabled={disabled}
-        onChange={(e) => {
-          const v = Number(e.target.value);
-          if (!Number.isNaN(v)) onChange(Math.min(max, Math.max(min, v)));
-        }}
+        onChange={onChange}
         className="w-full rounded-lg border border-line bg-paper px-2.5 py-1.5 font-mono text-sm disabled:opacity-50"
       />
     </label>

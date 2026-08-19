@@ -14,6 +14,7 @@ import {
 } from "@/lib/bank";
 import { ITEMS, getItemDef } from "@/lib/items";
 import { HankoStamp } from "./HankoStamp";
+import { NumberInput } from "./NumberInput";
 
 function formatMinutes(total: number) {
   const sign = total < 0 ? "-" : "";
@@ -122,11 +123,10 @@ function WeeklyChallengeSetup({
       <div className="flex gap-3 items-end">
         <label className="flex-1">
           <span className="block text-[11px] text-inkSoft mb-1">1日の目標(分)</span>
-          <input
-            type="number"
+          <NumberInput
             min={1}
             value={target}
-            onChange={(e) => setTarget(Number(e.target.value) || 0)}
+            onChange={setTarget}
             className="w-full rounded-lg border border-line bg-paper px-2.5 py-1.5 font-mono text-sm"
           />
         </label>
@@ -191,11 +191,10 @@ function DebtPanel({
       <div className="flex gap-3 items-end">
         <label className="flex-1">
           <span className="block text-[11px] text-inkSoft mb-1">返済する分数(貯金から)</span>
-          <input
-            type="number"
+          <NumberInput
             min={1}
             value={amount}
-            onChange={(e) => setAmount(Number(e.target.value) || 0)}
+            onChange={setAmount}
             className="w-full rounded-lg border border-line bg-paper px-2.5 py-1.5 font-mono text-sm"
           />
         </label>
@@ -237,11 +236,10 @@ function GoalPanel({
         <div className="flex gap-3 items-end">
           <label className="flex-1">
             <span className="block text-[11px] text-inkSoft mb-1">新しい目標(分)</span>
-            <input
-              type="number"
+            <NumberInput
               min={1}
               value={value}
-              onChange={(e) => setValue(Number(e.target.value) || 0)}
+              onChange={setValue}
               className="w-full rounded-lg border border-line bg-paper px-2.5 py-1.5 font-mono text-sm"
             />
           </label>
@@ -282,11 +280,10 @@ function ManualLogPanel({
       <div className="flex gap-3 mb-3">
         <label className="w-28">
           <span className="block text-[11px] text-inkSoft mb-1">分数</span>
-          <input
-            type="number"
+          <NumberInput
             min={1}
             value={minutes}
-            onChange={(e) => setMinutes(Number(e.target.value) || 0)}
+            onChange={setMinutes}
             className="w-full rounded-lg border border-line bg-paper px-2.5 py-1.5 font-mono text-sm"
           />
         </label>

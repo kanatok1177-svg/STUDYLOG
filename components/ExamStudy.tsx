@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { AppState } from "@/lib/types";
 import { uid, todayISO } from "@/lib/storage";
+import { NumberInput } from "./NumberInput";
 
 export function ExamStudy({
   state,
@@ -126,10 +127,9 @@ function MockExamChart({
         </label>
         <label>
           <span className="block text-[11px] text-inkSoft mb-1">偏差値</span>
-          <input
-            type="number"
+          <NumberInput
             value={hensachi}
-            onChange={(e) => setHensachi(Number(e.target.value) || 0)}
+            onChange={setHensachi}
             className="w-full rounded-lg border border-line bg-paper px-2.5 py-1.5 font-mono text-sm"
           />
         </label>
@@ -237,11 +237,10 @@ function SubjectLogs({
           placeholder="例: 英語"
           className="flex-1 rounded-lg border border-line bg-paper px-2.5 py-1.5 text-sm"
         />
-        <input
-          type="number"
+        <NumberInput
           min={1}
           value={minutes}
-          onChange={(e) => setMinutes(Number(e.target.value) || 0)}
+          onChange={setMinutes}
           className="w-20 rounded-lg border border-line bg-paper px-2.5 py-1.5 font-mono text-sm"
         />
         <button
