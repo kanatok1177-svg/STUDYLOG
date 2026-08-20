@@ -13,6 +13,13 @@ function formatMinutes(total: number) {
   return `${h}時間${m > 0 ? `${m}分` : ""}`;
 }
 
+// 借金は「○時間○分」に加えて、合計の分数も併記する
+function formatMinutesWithTotal(total: number) {
+  const h = Math.floor(total / 60);
+  if (h === 0) return formatMinutes(total);
+  return `${formatMinutes(total)}(${total}分)`;
+}
+
 export function Dashboard({
   state,
   onNavigate,
@@ -85,7 +92,7 @@ export function Dashboard({
             {formatMinutes(balance)}
           </div>
           <span className={`text-[11px] ${debt > 0 ? "text-stamp font-bold" : "text-inkSoft"}`}>
-            {debt > 0 ? `借金 ${formatMinutes(debt)}` : "借金なし"}
+            {debt > 0 ? `借金 ${formatMinutesWithTotal(debt)}` : "借金なし"}
           </span>
         </button>
 

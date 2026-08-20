@@ -25,6 +25,13 @@ function formatMinutes(total: number) {
   return `${sign}${h}時間${m > 0 ? `${m}分` : ""}`;
 }
 
+// 借金は「○時間○分」に加えて、合計の分数も併記する
+function formatMinutesWithTotal(total: number) {
+  const h = Math.floor(Math.abs(total) / 60);
+  if (h === 0) return formatMinutes(total);
+  return `${formatMinutes(total)}(${total}分)`;
+}
+
 export function BankVault({
   state,
   update,
@@ -183,7 +190,7 @@ function DebtPanel({
     <div className="rounded-card border border-stamp/60 bg-white/40 p-5">
       <h3 className="font-display font-bold text-sm mb-1 text-stamp">借金</h3>
       <div className="font-mono text-2xl font-extrabold text-stamp mb-1">
-        {formatMinutes(state.bank.debtAmount)}
+        {formatMinutesWithTotal(state.bank.debtAmount)}
       </div>
       <p className="text-[11px] text-inkSoft mb-4">
         返済せずに日をまたぐと、残高に約10%の利息がつきます。
