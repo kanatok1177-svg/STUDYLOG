@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppState } from "@/lib/storage";
 import { TabNav, TabKey } from "@/components/TabNav";
 import { Dashboard } from "@/components/Dashboard";
@@ -9,10 +9,15 @@ import { BankVault } from "@/components/BankVault";
 import { ExamStudy } from "@/components/ExamStudy";
 import { BankLogo } from "@/components/BankLogo";
 import { OnboardingModal } from "@/components/OnboardingModal";
+import { registerNotificationServiceWorker } from "@/lib/notify";
 
 export default function Home() {
   const { state, update, hydrated } = useAppState();
   const [tab, setTab] = useState<TabKey>("dashboard");
+
+  useEffect(() => {
+    registerNotificationServiceWorker();
+  }, []);
 
   return (
     <main className="min-h-screen">
